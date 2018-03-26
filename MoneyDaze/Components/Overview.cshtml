@@ -1,0 +1,66 @@
+﻿@page "/"
+@using MoneyDaze.Services.Contracts
+
+@inject IBudgetService BudgetService
+
+<h1>Overview</h1>
+
+<div class="row">
+
+    @if (BudgetService.TotalIncome == 0)
+    {
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Income</h3>
+                </div>
+                <div class="panel-body">
+                    <p>You currently have no income :(</p>
+                    <p>Why don't you <NavLink href="/income">add some</NavLink>?</p>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Income</h3>
+                </div>
+                <div class="panel-body">
+                    Your current income totals: <strong>£@BudgetService.TotalIncome</strong>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (BudgetService.TotalExpenses == 0)
+    { 
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Expenses</h3>
+                </div>
+                <div class="panel-body">
+                    <p>You currently have no expenses :)</p>
+                    <p>Are you sure you don't have <NavLink href="/income">something to add</NavLink>?</p>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Expenses</h3>
+                </div>
+                <div class="panel-body">
+                    Your current expenses total: <strong>£@BudgetService.TotalExpenses</strong>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

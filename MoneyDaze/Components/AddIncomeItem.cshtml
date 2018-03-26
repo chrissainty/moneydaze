@@ -1,22 +1,36 @@
 ﻿@inject IBudgetService BudgetService
 
-<input @bind(ItemDescription) placeholder="Enter Description..." />
-<input @bind(ItemAmount) placeholder="Enter Amount..." />
-
-<button @onclick(AddIncome) class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
+<div class="row">
+    <div class="col-md-4">
+        <input class="form-control" @bind(ItemDescription) placeholder="Enter Description..." />
+    </div>
+    <div class="col-md-2">
+        <input class="form-control" @bind(ItemAmount) placeholder="Enter Amount..." />
+    </div>
+    <div class="col-md-6">
+        <button @onclick(AddIncome) class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
+        <button @onclick(CancelAddItem) class="btn btn-default"><i class="glyphicon glyphicon-cross"></i> Cancel</button>
+    </div>
+</div>
 
 @functions {
 
     public Action OnIncomeAdded { get; set; }
+    public Action OnCancelAdd { get; set; }
 
     private string ItemDescription { get; set; }
     private string ItemAmount { get; set; }
 
-    void AddIncome()
+    private void AddIncome()
     {
         BudgetService.AddIncome(new Services.Income { Description = ItemDescription, Amount = Convert.ToDecimal(ItemAmount) });
 
         OnIncomeAdded?.Invoke();
+    }
+
+    private void CancelAddItem()
+    {
+        OnCancelAdd?.Invoke();
     }
 
 }

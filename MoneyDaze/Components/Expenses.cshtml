@@ -1,9 +1,10 @@
 ﻿@inject IBudgetService BudgetService
 
+@page "/expenses"
+
+<h1>Expenses</h1>
+
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <h1 class="panel-title">Expenses <small>£@BudgetService.TotalExpenses</small></h1>
-    </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">
@@ -28,16 +29,19 @@
                 </table>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <button @onclick(ToggleShowAddItem) class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
+        @if (!ShowAddItem)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <button @onclick(ToggleShowAddItem) class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
+                </div>
             </div>
-        </div>
+        }
         @if (ShowAddItem)
         {
             <div class="row">
                 <div class="col-md-12">
-                    <AddExpenseItem OnExpenseAdded=RefreshData />
+                    <AddExpenseItem OnExpenseAdded=RefreshData OnCancelAdd=CancelAdd />
                 </div>
             </div>
         }
@@ -54,6 +58,12 @@ private void ToggleShowAddItem()
 }
 
 private void RefreshData()
+{
+    StateHasChanged();
+    ToggleShowAddItem();
+}
+
+private void CancelAdd()
 {
     StateHasChanged();
     ToggleShowAddItem();

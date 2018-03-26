@@ -16,6 +16,7 @@
   <ItemGroup>
     <None Include="Components\AddIncomeItem.cshtml" />
     <None Include="Components\Income.cshtml" />
+    <None Include="Shared\SiteHeader.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +41,18 @@
 
   <ItemGroup>
     <BlazorGenerate Remove="Components\AddExpenseItem.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BlazorGenerate Remove="Shared\SiteHeader.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Shared\SiteHeader.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BlazorGenerate Remove="Components\Overview.cshtml" />
   </ItemGroup>
 
 </Project>
