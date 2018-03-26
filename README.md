@@ -1,2 +1,3 @@
-# moneydaze
-An example app written with Microsoft Blazer
+# MoneyDaze
+
+An example app written with [Microsoft Blazer](https://github.com/aspnet/Blazor).
