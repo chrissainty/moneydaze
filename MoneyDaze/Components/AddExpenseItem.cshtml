@@ -1,0 +1,34 @@
+﻿@inject IBudgetService BudgetService
+
+<input @bind(ItemDescription) placeholder="Enter Description..." />
+<select class="form-control" @bind(ItemCategory)>
+    <option value=@Category.General>General</option>
+    <option value=@Category.Bills>Bills</option>
+    <option value=@Category.EatingOut>Eating Out</option>
+    <option value=@Category.Entertainment>Entertainment</option>
+    <option value=@Category.Food>Food</option>
+    <option value=@Category.Holidays>Holidays</option>
+    <option value=@Category.Shopping>Shopping</option>
+    <option value=@Category.Transport>Transport</option>
+    <option value=@Category.Misc>Misc</option>
+</select>
+<input @bind(ItemAmount) placeholder="Enter Amount..." />
+
+<button @onclick(AddExpense) class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
+
+@functions {
+
+    public Action OnExpenseAdded { get; set; }
+
+    private string ItemDescription { get; set; }
+    private Category ItemCategory { get; set; }
+    private string ItemAmount { get; set; }
+
+    void AddExpense()
+    {
+        BudgetService.AddExpense(new Services.Expense { Description = ItemDescription, Category = ItemCategory, Amount = Convert.ToDecimal(ItemAmount) });
+
+        OnExpenseAdded?.Invoke();
+    }
+
+}

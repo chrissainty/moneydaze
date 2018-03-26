@@ -1,0 +1,61 @@
+﻿@inject IBudgetService BudgetService
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1 class="panel-title">Expenses <small>£@BudgetService.TotalExpenses</small></h1>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Expense</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var expense in BudgetService.Expenses)
+                        {
+                            <tr>
+                                <td>@expense.Description</td>
+                                <td>@expense.Category.ToString()</td>
+                                <td>@expense.Amount</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button @onclick(ToggleShowAddItem) class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
+            </div>
+        </div>
+        @if (ShowAddItem)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <AddExpenseItem OnExpenseAdded=RefreshData />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@functions {
+
+private bool ShowAddItem { get; set; }
+
+private void ToggleShowAddItem()
+{
+    ShowAddItem = !ShowAddItem;
+}
+
+private void RefreshData()
+{
+    StateHasChanged();
+    ToggleShowAddItem();
+}
+}

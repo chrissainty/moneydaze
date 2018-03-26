@@ -1,0 +1,17 @@
+﻿@page "/"
+@using MoneyDaze.Services
+@using MoneyDaze.Services.Contracts
+
+@inject IBudgetService BudgetService
+
+<div class="row">
+    <div class="col-md-12">
+        <Income />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <Expenses />
+    </div>
+</div>

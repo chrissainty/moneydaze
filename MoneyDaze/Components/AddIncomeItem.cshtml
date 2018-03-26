@@ -1,0 +1,22 @@
+﻿@inject IBudgetService BudgetService
+
+<input @bind(ItemDescription) placeholder="Enter Description..." />
+<input @bind(ItemAmount) placeholder="Enter Amount..." />
+
+<button @onclick(AddIncome) class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
+
+@functions {
+
+    public Action OnIncomeAdded { get; set; }
+
+    private string ItemDescription { get; set; }
+    private string ItemAmount { get; set; }
+
+    void AddIncome()
+    {
+        BudgetService.AddIncome(new Services.Income { Description = ItemDescription, Amount = Convert.ToDecimal(ItemAmount) });
+
+        OnIncomeAdded?.Invoke();
+    }
+
+}
