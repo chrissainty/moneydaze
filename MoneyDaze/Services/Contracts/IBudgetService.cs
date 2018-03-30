@@ -9,6 +9,7 @@ namespace MoneyDaze.Services.Contracts
         decimal TotalIncome { get; }
         decimal TotalExpenses { get; }
 
+        void LoadData();
         void AddIncome(Income newIncome);
         void AddExpense(Expense newExpense);
     }

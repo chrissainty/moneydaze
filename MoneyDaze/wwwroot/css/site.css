@@ -6,9 +6,9 @@
     width: 100%;
     height: 100%;
     background-color: #0bc11c;
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0bc11c',endColorstr='#088b14');
-    background: -webkit-linear-gradient(305deg, #0bc11c 0%, #088b14 100%);
-    background: linear-gradient(145deg, #0bc11c 0%, #088b14 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0bc11c',endColorstr='#076d11');
+    background: -webkit-linear-gradient(305deg, #0bc11c 0%, #076d11 100%);
+    background: linear-gradient(145deg, #0bc11c 0%, #076d11 100%);
     font-weight: bold;
     text-align: center;
     padding: 200px;
@@ -21,9 +21,9 @@
 header {
     margin-bottom: 50px;
     background-color: #0bc11c;
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0bc11c',endColorstr='#088b14');
-    background: -webkit-linear-gradient(305deg, #0bc11c 0%, #088b14 100%);
-    background: linear-gradient(145deg, #0bc11c 0%, #088b14 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0bc11c',endColorstr='#076d11');
+    background: -webkit-linear-gradient(305deg, #0bc11c 0%, #076d11 100%);
+    background: linear-gradient(145deg, #0bc11c 0%, #076d11 100%);
     background-size: cover;
 }
 
@@ -73,9 +73,9 @@ header {
 
 .panel-heading {
     background: #0bc11c;
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0bc11c',endColorstr='#088b14');
-    background: -webkit-linear-gradient(305deg, #0bc11c 0%, #088b14 100%);
-    background: linear-gradient(145deg, #0bc11c 0%, #088b14 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0bc11c',endColorstr='#076d11');
+    background: -webkit-linear-gradient(305deg, #0bc11c 0%, #076d11 100%);
+    background: linear-gradient(145deg, #0bc11c 0%, #076d11 100%);
     color: #ffffff;
 }
 

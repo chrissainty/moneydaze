@@ -55,4 +55,8 @@
     <BlazorGenerate Remove="Components\Overview.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\blazoredjs\BlazoredJs\BlazoredJs.csproj" />
+  </ItemGroup>
+
 </Project>
