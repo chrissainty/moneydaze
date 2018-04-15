@@ -31,13 +31,13 @@
         {
         <div class="row">
             <div class="col-md-12">
-                <button @onclick(ToggleShowAddItem) class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
+                <button onclick="@ToggleShowAddItem" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
             </div>
         </div>
         }
         @if (ShowAddItem)
         {
-            <AddIncomeItem OnIncomeAdded=RefreshData OnCancelAdd=CancelAdd />
+            <AddIncomeItem OnIncomeAdded="@RefreshData" OnCancelAdd="@CancelAdd" />
         }
     </div>
 </div>

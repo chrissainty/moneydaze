@@ -1,7 +1,4 @@
-﻿using BlazoredJs;
-using BlazoredJs.LocalStorage;
-using Microsoft.AspNetCore.Blazor;
-using Microsoft.AspNetCore.Blazor.Browser.Interop;
+﻿using MoneyDaze.Infrastructure.LocalStorage;
 using MoneyDaze.Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -19,7 +16,7 @@ namespace MoneyDaze.Services
         {
             get
             {
-                // TODO: This is terrible. Must find a better way of loading initial data
+                // TODO: This isn't great. Must find a better way of loading initial data
                 if (!_incomes.Any())
                     LoadData();
 
@@ -34,7 +31,7 @@ namespace MoneyDaze.Services
         {
             get
             {
-                // TODO: This is terrible. Must find a better way of loading initial data
+                // TODO: This isn't great. Must find a better way of loading initial data
                 if (!_expenses.Any())
                     LoadData();
 
@@ -51,7 +48,11 @@ namespace MoneyDaze.Services
             _incomes = BlazoredLocalStorage.Get<List<Income>>(IncomeLocalStorageIdentifier);
             _expenses = BlazoredLocalStorage.Get<List<Expense>>(ExpensesLocalStorageIdentifier);
 
-            Console.WriteLine("Get local storage data complete");
+            if (_incomes == null)
+                _incomes = new List<Income>();
+
+            if (_expenses == null)
+                _expenses = new List<Expense>();
         }
 
         public void AddIncome(Income newIncome)
