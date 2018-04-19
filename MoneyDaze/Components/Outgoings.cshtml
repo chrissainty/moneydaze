@@ -1,8 +1,8 @@
 ﻿@inject IBudgetService BudgetService
 
-@page "/expenses"
+@page "/outgoings"
 
-<h1>Expenses</h1>
+<h1>Outgoings</h1>
 
 <div class="panel panel-default">
     <div class="panel-body">
@@ -11,7 +11,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Expense</th>
+                            <th>Outgoing</th>
                             <th>Category</th>
                             <th>Amount</th>
                         </tr>
@@ -41,7 +41,7 @@
         {
             <div class="row">
                 <div class="col-md-12">
-                    <AddExpenseItem OnExpenseAdded="@RefreshData" OnCancelAdd="@CancelAdd" />
+                    <AddOutgoingItem OnOutgoingAdded="@RefreshData" OnCancelAdd="@CancelAdd" />
                 </div>
             </div>
         }
