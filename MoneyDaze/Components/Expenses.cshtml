@@ -17,12 +17,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var expense in BudgetService.Expenses)
+                        @foreach (var outgoing in BudgetService.Outgoings)
                         {
                             <tr>
-                                <td>@expense.Description</td>
-                                <td>@expense.Category.ToString()</td>
-                                <td>@expense.Amount</td>
+                                <td>@outgoing.Description</td>
+                                <td>@outgoing.Category.ToString()</td>
+                                <td>@outgoing.Amount</td>
                             </tr>
                         }
                     </tbody>
