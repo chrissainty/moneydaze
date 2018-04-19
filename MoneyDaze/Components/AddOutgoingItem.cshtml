@@ -21,25 +21,25 @@
         <input class="form-control" bind="@ItemAmount" placeholder="Enter Amount..." />
     </div>
     <div class="col-md-4">
-        <button onclick="@AddExpense" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
+        <button onclick="@AddOutgoing" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
         <button onclick="@CancelAddItem" class="btn btn-default"><i class="glyphicon glyphicon-cross"></i> Cancel</button>
     </div>
 </div>
 
 @functions {
 
-    public Action OnExpenseAdded { get; set; }
+    public Action OnOutgoingAdded { get; set; }
     public Action OnCancelAdd { get; set; }
 
     private string ItemDescription { get; set; }
     private Category ItemCategory { get; set; }
     private string ItemAmount { get; set; }
 
-    void AddExpense()
+    void AddOutgoing()
     {
-        BudgetService.AddExpense(new Services.Expense { Description = ItemDescription, Category = ItemCategory, Amount = Convert.ToDecimal(ItemAmount) });
+        BudgetService.AddOutgoing(new Services.Outgoing { Description = ItemDescription, Category = ItemCategory, Amount = Convert.ToDecimal(ItemAmount) });
 
-        OnExpenseAdded?.Invoke();
+        OnOutgoingAdded?.Invoke();
     }
 
     private void CancelAddItem()

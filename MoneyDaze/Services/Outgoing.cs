@@ -1,6 +1,6 @@
 ﻿namespace MoneyDaze.Services
 {
-    public class Expense
+    public class Outgoing
     {
         public string Description { get; set; }
         public Category Category { get; set; }

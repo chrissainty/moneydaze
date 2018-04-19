@@ -9,7 +9,7 @@ namespace MoneyDaze.Services
     public class BudgetService : IBudgetService
     {
         const string IncomeLocalStorageIdentifier = "incomes";
-        const string ExpensesLocalStorageIdentifier = "expenses";
+        const string ExpensesLocalStorageIdentifier = "outgoings";
 
         private List<Income> _incomes = new List<Income>();
         public List<Income> Incomes
@@ -24,10 +24,10 @@ namespace MoneyDaze.Services
             }
         }
 
-        public decimal TotalIncome { get => Math.Round(_incomes.Sum(i => i.Amount), 2); }
+        public decimal TotalIncome { get => Math.Round(Incomes.Sum(i => i.Amount), 2); }
 
-        private List<Expense> _outgoings = new List<Expense>();
-        public List<Expense> Outgoings
+        private List<Outgoing> _outgoings = new List<Outgoing>();
+        public List<Outgoing> Outgoings
         {
             get
             {
@@ -39,20 +39,18 @@ namespace MoneyDaze.Services
             }
         }
 
-        public decimal TotalOutgoings { get => Math.Round(_outgoings.Sum(x => x.Amount), 2); }
+        public decimal TotalOutgoings { get => Math.Round(Outgoings.Sum(x => x.Amount), 2); }
 
         public void LoadData()
         {
-            Console.WriteLine("Invoking get local storage data");
-
             _incomes = LocalStorage.Get<List<Income>>(IncomeLocalStorageIdentifier);
-            _outgoings = LocalStorage.Get<List<Expense>>(ExpensesLocalStorageIdentifier);
+            _outgoings = LocalStorage.Get<List<Outgoing>>(ExpensesLocalStorageIdentifier);
 
             if (_incomes == null)
                 _incomes = new List<Income>();
 
             if (_outgoings == null)
-                _outgoings = new List<Expense>();
+                _outgoings = new List<Outgoing>();
         }
 
         public void AddIncome(Income newIncome)
@@ -61,17 +59,15 @@ namespace MoneyDaze.Services
             SaveToLocalStorage(IncomeLocalStorageIdentifier, _incomes);
         }
 
-        public void AddExpense(Expense newExpense)
+        public void AddOutgoing(Outgoing newOutgoing)
         {
-            _outgoings.Add(newExpense);
+            _outgoings.Add(newOutgoing);
             SaveToLocalStorage(ExpensesLocalStorageIdentifier, _outgoings);
         }
 
         private void SaveToLocalStorage(string identifier, object data)
         {
-            Console.WriteLine("Invoking save to local storage");
             LocalStorage.Save(identifier, data);
-            Console.WriteLine("Save to local storage complete");
         }
     }
 }

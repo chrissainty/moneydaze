@@ -18,4 +18,16 @@
     <Folder Include="wwwroot\scripts\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <BlazorGenerate Remove="Components\AddOutgoingItem.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BlazorGenerate Remove="Components\Outgoings.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BlazorGenerate Remove="Components\Incomes.cshtml" />
+  </ItemGroup>
+
 </Project>
