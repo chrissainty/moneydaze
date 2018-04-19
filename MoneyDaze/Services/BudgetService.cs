@@ -1,4 +1,4 @@
-﻿using MoneyDaze.Infrastructure.LocalStorage;
+﻿using Blazored.Js;
 using MoneyDaze.Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -26,33 +26,33 @@ namespace MoneyDaze.Services
 
         public decimal TotalIncome { get => Math.Round(_incomes.Sum(i => i.Amount), 2); }
 
-        private List<Expense> _expenses = new List<Expense>();
-        public List<Expense> Expenses
+        private List<Expense> _outgoings = new List<Expense>();
+        public List<Expense> Outgoings
         {
             get
             {
                 // TODO: This isn't great. Must find a better way of loading initial data
-                if (!_expenses.Any())
+                if (!_outgoings.Any())
                     LoadData();
 
-                return _expenses;
+                return _outgoings;
             }
         }
 
-        public decimal TotalExpenses { get => Math.Round(_expenses.Sum(x => x.Amount), 2); }
+        public decimal TotalOutgoings { get => Math.Round(_outgoings.Sum(x => x.Amount), 2); }
 
         public void LoadData()
         {
             Console.WriteLine("Invoking get local storage data");
 
-            _incomes = BlazoredLocalStorage.Get<List<Income>>(IncomeLocalStorageIdentifier);
-            _expenses = BlazoredLocalStorage.Get<List<Expense>>(ExpensesLocalStorageIdentifier);
+            _incomes = LocalStorage.Get<List<Income>>(IncomeLocalStorageIdentifier);
+            _outgoings = LocalStorage.Get<List<Expense>>(ExpensesLocalStorageIdentifier);
 
             if (_incomes == null)
                 _incomes = new List<Income>();
 
-            if (_expenses == null)
-                _expenses = new List<Expense>();
+            if (_outgoings == null)
+                _outgoings = new List<Expense>();
         }
 
         public void AddIncome(Income newIncome)
@@ -63,14 +63,14 @@ namespace MoneyDaze.Services
 
         public void AddExpense(Expense newExpense)
         {
-            _expenses.Add(newExpense);
-            SaveToLocalStorage(ExpensesLocalStorageIdentifier, _expenses);
+            _outgoings.Add(newExpense);
+            SaveToLocalStorage(ExpensesLocalStorageIdentifier, _outgoings);
         }
 
         private void SaveToLocalStorage(string identifier, object data)
         {
             Console.WriteLine("Invoking save to local storage");
-            BlazoredLocalStorage.Save(identifier, data);
+            LocalStorage.Save(identifier, data);
             Console.WriteLine("Save to local storage complete");
         }
     }

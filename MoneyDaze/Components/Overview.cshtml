@@ -35,7 +35,7 @@
         </div>
     }
 
-    @if (BudgetService.TotalExpenses == 0)
+    @if (BudgetService.TotalOutgoings == 0)
     { 
         <div class="col-md-6">
             <div class="panel panel-default">
@@ -57,7 +57,7 @@
                     <h3 class="panel-title">Expenses</h3>
                 </div>
                 <div class="panel-body">
-                    Your current expenses total: <strong>£@BudgetService.TotalExpenses</strong>
+                    Your current expenses total: <strong>£@BudgetService.TotalOutgoings</strong>
                 </div>
             </div>
         </div>
