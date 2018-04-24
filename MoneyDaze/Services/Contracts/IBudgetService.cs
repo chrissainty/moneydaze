@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MoneyDaze.Services.Contracts
 {
@@ -12,5 +13,7 @@ namespace MoneyDaze.Services.Contracts
         void LoadData();
         void AddIncome(Income newIncome);
         void AddOutgoing(Outgoing newOutgoing);
+        void DeleteIncome(Guid id);
+        void DeleteOutgoing(Guid id);
     }
 }

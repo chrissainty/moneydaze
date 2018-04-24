@@ -7,15 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\scripts\**" />
+    <Content Remove="wwwroot\scripts\**" />
+    <EmbeddedResource Remove="wwwroot\scripts\**" />
+    <None Remove="wwwroot\scripts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BlazoredLocalStorage" Version="0.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.0-preview2-final" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Browser" Version="0.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="0.2.1" />
     <DotNetCliToolReference Include="Microsoft.AspNetCore.Blazor.Cli" Version="0.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\scripts\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +31,10 @@
 
   <ItemGroup>
     <BlazorGenerate Remove="Components\Incomes.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BlazorGenerate Remove="wwwroot\scripts\**" />
   </ItemGroup>
 
 </Project>

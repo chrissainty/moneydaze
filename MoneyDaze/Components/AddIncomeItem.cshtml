@@ -2,10 +2,10 @@
 
 <div class="row">
     <div class="col-md-4">
-        <input class="form-control" bind="@ItemDescription" placeholder="Enter Description..." />
+        <input class="form-control" bind="@income.Description" placeholder="Enter Description..." />
     </div>
     <div class="col-md-2">
-        <input class="form-control" bind="@ItemAmount" placeholder="Enter Amount..." />
+        <input class="form-control" bind="@income.Amount" placeholder="Enter Amount..." />
     </div>
     <div class="col-md-6">
         <button onclick="@AddIncome" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
@@ -18,12 +18,16 @@
     public Action OnIncomeAdded { get; set; }
     public Action OnCancelAdd { get; set; }
 
-    private string ItemDescription { get; set; }
-    private string ItemAmount { get; set; }
+    private Income income = new Income();
+
+    protected override void OnInit()
+    {
+        Console.WriteLine("AddIncomeItem Started...");
+    }
 
     private void AddIncome()
     {
-        BudgetService.AddIncome(new Services.Income { Description = ItemDescription, Amount = Convert.ToDecimal(ItemAmount) });
+        BudgetService.AddIncome(income);
 
         OnIncomeAdded?.Invoke();
     }

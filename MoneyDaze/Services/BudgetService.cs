@@ -9,7 +9,7 @@ namespace MoneyDaze.Services
     public class BudgetService : IBudgetService
     {
         const string IncomeLocalStorageIdentifier = "incomes";
-        const string ExpensesLocalStorageIdentifier = "outgoings";
+        const string OutgoingLocalStorageIdentifier = "outgoings";
 
         private List<Income> _incomes = new List<Income>();
         public List<Income> Incomes
@@ -24,7 +24,7 @@ namespace MoneyDaze.Services
             }
         }
 
-        public decimal TotalIncome { get => Math.Round(Incomes.Sum(i => i.Amount), 2); }
+        public decimal TotalIncome { get => Math.Round(Incomes.Sum(i => Convert.ToDecimal(i.Amount)), 2); }
 
         private List<Outgoing> _outgoings = new List<Outgoing>();
         public List<Outgoing> Outgoings
@@ -39,12 +39,12 @@ namespace MoneyDaze.Services
             }
         }
 
-        public decimal TotalOutgoings { get => Math.Round(Outgoings.Sum(x => x.Amount), 2); }
+        public decimal TotalOutgoings { get => Math.Round(Outgoings.Sum(x => Convert.ToDecimal(x.Amount)), 2); }
 
         public void LoadData()
         {
             _incomes = LocalStorage.Get<List<Income>>(IncomeLocalStorageIdentifier);
-            _outgoings = LocalStorage.Get<List<Outgoing>>(ExpensesLocalStorageIdentifier);
+            _outgoings = LocalStorage.Get<List<Outgoing>>(OutgoingLocalStorageIdentifier);
 
             if (_incomes == null)
                 _incomes = new List<Income>();
@@ -62,7 +62,31 @@ namespace MoneyDaze.Services
         public void AddOutgoing(Outgoing newOutgoing)
         {
             _outgoings.Add(newOutgoing);
-            SaveToLocalStorage(ExpensesLocalStorageIdentifier, _outgoings);
+            SaveToLocalStorage(OutgoingLocalStorageIdentifier, _outgoings);
+        }
+
+        public void DeleteIncome(Guid id)
+        {
+            var income = _incomes.SingleOrDefault(x => x.Id == id);
+
+            if (income == null)
+                return;
+
+            _incomes.Remove(income);
+            
+            LocalStorage.Save(IncomeLocalStorageIdentifier, _incomes);
+        }
+
+        public void DeleteOutgoing(Guid id)
+        {
+            var outgoing = _outgoings.SingleOrDefault(x => x.Id == id);
+
+            if (outgoing == null)
+                return;
+
+            _outgoings.Remove(outgoing);
+
+            LocalStorage.Save(OutgoingLocalStorageIdentifier, _outgoings);
         }
 
         private void SaveToLocalStorage(string identifier, object data)

@@ -14,16 +14,18 @@
                             <th>Outgoing</th>
                             <th>Category</th>
                             <th>Amount</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var outgoing in BudgetService.Outgoings)
                         {
-                            <tr>
-                                <td>@outgoing.Description</td>
-                                <td>@outgoing.Category.ToString()</td>
-                                <td>@outgoing.Amount</td>
-                            </tr>
+                        <tr>
+                            <td>@outgoing.Description</td>
+                            <td>@outgoing.Category.ToString()</td>
+                            <td>£@outgoing.Amount</td>
+                            <td class="text-right"><button class="btn btn-default" onclick="@(() => DeleteItem(outgoing.Id))">Delete</button></td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -50,22 +52,28 @@
 
 @functions {
 
-private bool ShowAddItem { get; set; }
+    private bool ShowAddItem { get; set; }
 
-private void ToggleShowAddItem()
-{
-    ShowAddItem = !ShowAddItem;
-}
+    private void ToggleShowAddItem()
+    {
+        ShowAddItem = !ShowAddItem;
+    }
 
-private void RefreshData()
-{
-    StateHasChanged();
-    ToggleShowAddItem();
-}
+    private void RefreshData()
+    {
+        StateHasChanged();
+        ToggleShowAddItem();
+    }
 
-private void CancelAdd()
-{
-    StateHasChanged();
-    ToggleShowAddItem();
-}
+    private void CancelAdd()
+    {
+        StateHasChanged();
+        ToggleShowAddItem();
+    }
+
+    private void DeleteItem(Guid id)
+    {
+        BudgetService.DeleteOutgoing(id);
+        StateHasChanged();
+    }
 }
