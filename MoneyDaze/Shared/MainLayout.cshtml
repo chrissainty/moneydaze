@@ -1,4 +1,4 @@
-﻿@implements ILayoutComponent
+﻿@inherits BlazorLayoutComponent
 
 <SiteHeader />
 
@@ -9,9 +9,3 @@
         </div>
     </div>
 </div>
-
-@functions {
-
-    public RenderFragment Body { get; set; }
-
-}
