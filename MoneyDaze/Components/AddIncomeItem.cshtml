@@ -15,8 +15,11 @@
 
 @functions {
 
-    public Action OnIncomeAdded { get; set; }
-    public Action OnCancelAdd { get; set; }
+    [Parameter]
+    private Action OnIncomeAdded { get; set; }
+
+    [Parameter]
+    private Action OnCancelAdd { get; set; }
 
     private Income income = new Income();
 
