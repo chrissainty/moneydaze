@@ -1,4 +1,4 @@
-﻿using Blazored.Js;
+﻿using Blazored.Storage;
 using MoneyDaze.Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,8 @@ namespace MoneyDaze.Services
     {
         const string IncomeLocalStorageIdentifier = "incomes";
         const string OutgoingLocalStorageIdentifier = "outgoings";
+
+        private readonly ILocalStorage _localStorage;
 
         private List<Income> _incomes = new List<Income>();
         public List<Income> Incomes
@@ -41,10 +43,15 @@ namespace MoneyDaze.Services
 
         public decimal TotalOutgoings { get => Math.Round(Outgoings.Sum(x => Convert.ToDecimal(x.Amount)), 2); }
 
+        public BudgetService(ILocalStorage localStorage)
+        {
+            _localStorage = localStorage;
+        }
+
         public void LoadData()
         {
-            _incomes = LocalStorage.Get<List<Income>>(IncomeLocalStorageIdentifier);
-            _outgoings = LocalStorage.Get<List<Outgoing>>(OutgoingLocalStorageIdentifier);
+            _incomes = _localStorage.GetItem<List<Income>>(IncomeLocalStorageIdentifier);
+            _outgoings = _localStorage.GetItem<List<Outgoing>>(OutgoingLocalStorageIdentifier);
 
             if (_incomes == null)
                 _incomes = new List<Income>();
@@ -74,7 +81,7 @@ namespace MoneyDaze.Services
 
             _incomes.Remove(income);
             
-            LocalStorage.Save(IncomeLocalStorageIdentifier, _incomes);
+            _localStorage.SetItem(IncomeLocalStorageIdentifier, _incomes);
         }
 
         public void DeleteOutgoing(Guid id)
@@ -86,12 +93,12 @@ namespace MoneyDaze.Services
 
             _outgoings.Remove(outgoing);
 
-            LocalStorage.Save(OutgoingLocalStorageIdentifier, _outgoings);
+            _localStorage.SetItem(OutgoingLocalStorageIdentifier, _outgoings);
         }
 
         private void SaveToLocalStorage(string identifier, object data)
         {
-            LocalStorage.Save(identifier, data);
+            _localStorage.SetItem(identifier, data);
         }
     }
 }
