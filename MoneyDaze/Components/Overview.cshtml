@@ -1,13 +1,12 @@
 ﻿@page "/"
-@using MoneyDaze.Services.Contracts
 
-@inject IBudgetService BudgetService
+@inject AppState appState
 
 <h1>Overview</h1>
 
 <div class="row">
 
-    @if (BudgetService.TotalIncome == 0)
+    @if (totalIncome == 0)
     {
         <div class="col-md-6">
             <div class="panel panel-default">
@@ -29,13 +28,13 @@
                     <h3 class="panel-title">Incomes</h3>
                 </div>
                 <div class="panel-body">
-                    Your current incomes totals: <strong>£@BudgetService.TotalIncome</strong>
+                    Your current incomes totals: <strong>£@(Math.Round(totalIncome, 2))</strong>
                 </div>
             </div>
         </div>
     }
 
-    @if (BudgetService.TotalOutgoings == 0)
+    @if (totalOutgoings == 0)
     { 
         <div class="col-md-6">
             <div class="panel panel-default">
@@ -57,10 +56,24 @@
                     <h3 class="panel-title">Outgoings</h3>
                 </div>
                 <div class="panel-body">
-                    Your current outgoings total: <strong>£@BudgetService.TotalOutgoings</strong>
+                    Your current outgoings total: <strong>£@(Math.Round(totalOutgoings, 2))</strong>
                 </div>
             </div>
         </div>
     }
 
 </div>
+
+@functions {
+
+    private decimal totalIncome => appState.Incomes.Sum(x => x.Amount);
+    private decimal totalOutgoings => appState.Outgoings.Sum(x => x.Amount);
+
+    protected override async Task OnInitAsync()
+    {
+        appState.OnChange += StateHasChanged;
+
+        await appState.LoadData();
+    }
+
+}

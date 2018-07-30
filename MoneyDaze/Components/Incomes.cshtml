@@ -1,5 +1,4 @@
-﻿@inject IBudgetService BudgetService
-
+﻿@inject AppState  appState
 @page "/incomes"
 
 <h1>Incomes</h1>
@@ -17,7 +16,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var income in BudgetService.Incomes)
+                        @foreach (var income in appState.Incomes)
                         {
                             <tr>
                                 <td>@income.Description</td>
@@ -39,7 +38,7 @@
         }
         @if (ShowAddItem)
         {
-            <AddIncomeItem OnIncomeAdded="@RefreshData" OnCancelAdd="@CancelAdd" />
+            <AddIncomeItem OnIncomeAdded=@IncomeAdded OnCancelAdd=@CancelAdd />
         }
     </div>
 </div>
@@ -48,12 +47,17 @@
 
     private bool ShowAddItem { get; set; }
 
+    protected override void OnInit()
+    {
+        appState.OnChange += StateHasChanged;
+    }
+
     private void ToggleShowAddItem()
     {
         ShowAddItem = !ShowAddItem;
     }
 
-    private void RefreshData()
+    private void IncomeAdded()
     {
         ToggleShowAddItem();
         StateHasChanged();
@@ -65,9 +69,8 @@
         StateHasChanged();
     }
 
-    private void DeleteItem(Guid id)
+    private async Task DeleteItem(Guid id)
     {
-        BudgetService.DeleteIncome(id);
-        StateHasChanged();
+        await appState.DeleteIncome(id);
     }
 }

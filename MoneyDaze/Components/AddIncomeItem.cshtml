@@ -1,4 +1,4 @@
-﻿@inject IBudgetService BudgetService
+﻿@inject AppState  appState
 
 <div class="row">
     <div class="col-md-4">
@@ -15,23 +15,19 @@
 
 @functions {
 
-    [Parameter]
-    private Action OnIncomeAdded { get; set; }
-
-    [Parameter]
-    private Action OnCancelAdd { get; set; }
+    [Parameter] private Action OnIncomeAdded { get; set; }
+    [Parameter] private Action OnCancelAdd { get; set; }
 
     private Income income = new Income();
 
     protected override void OnInit()
     {
-        Console.WriteLine("AddIncomeItem Started...");
+        appState.OnChange += StateHasChanged;
     }
 
-    private void AddIncome()
+    private async Task AddIncome()
     {
-        BudgetService.AddIncome(income);
-
+        await appState.AddIncome(income);
         OnIncomeAdded?.Invoke();
     }
 

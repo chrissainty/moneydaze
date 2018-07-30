@@ -1,4 +1,4 @@
-﻿@inject IBudgetService BudgetService
+﻿@inject AppState  appState
 
 <div class="row">
     <div class="col-md-4">
@@ -28,23 +28,14 @@
 
 @functions {
 
-    [Parameter]
-    private Action OnOutgoingAdded { get; set; }
+    [Parameter] private Action OnOutgoingAdded { get; set; }
+    [Parameter] private Action OnCancelAdd { get; set; }
 
-    [Parameter]
-    private Action OnCancelAdd { get; set; }
+    private Outgoing outgoing = new Outgoing();
 
-    private Outgoing outgoing;
-
-    protected override void OnInit()
+    private async Task AddOutgoing()
     {
-        outgoing = new Outgoing();
-    }
-
-    void AddOutgoing()
-    {
-        BudgetService.AddOutgoing(outgoing);
-
+        await appState.AddOutgoing(outgoing);
         OnOutgoingAdded?.Invoke();
     }
 

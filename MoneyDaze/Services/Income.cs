@@ -6,7 +6,7 @@ namespace MoneyDaze.Services
     {
         public Guid Id { get; set; }
         public string Description { get; set; }
-        public string Amount { get; set; }
+        public decimal Amount { get; set; }
 
         public Income()
         {
